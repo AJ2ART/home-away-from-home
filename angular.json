@@ -10,7 +10,7 @@
           "strict": false
         },
         "@schematics/angular:component": {
-            "style": "scss"
+          "style": "scss"
         }
       },
       "root": "",
@@ -107,6 +107,16 @@
               "../node_modules/primeicons/primeicons.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "home-away-from-home:build:production",
+            "firebaseProject": "homeawayfromhome-c0bc6",
+            "firebaseHostingSite": "homeawayfromhome-c0bc6"
           }
         }
       }

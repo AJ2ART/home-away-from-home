@@ -22,6 +22,10 @@ import { MainAppComponent } from './main-app/main-app.component';
 import { AddRentalComponent } from './main-app/add-rental/add-rental.component';
 import { ListVacanciesComponent } from './main-app/list-vacancies/list-vacancies.component';
 import { PropertyDetailsPageComponent } from './main-app/list-vacancies/property-details-page/property-details-page.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,9 @@ import { PropertyDetailsPageComponent } from './main-app/list-vacancies/property
     TabMenuModule,
     ImageModule,
     FileUploadModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [
     HttpClient
