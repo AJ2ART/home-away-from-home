@@ -1,0 +1,46 @@
+<div class="main-form flex justify-content-center">
+    <div class="surface-card w-full lg:w-6">
+        <p-card header="Rental form" subheader="Please fill the from" styleClass="border-round m-4 p-4 shadow-2">
+            <div class="form-element">
+                <label for="username" class="block text-900 font-medium mb-2">Username</label>
+                <input type="text" class="w-full" pInputText placeholder="Username" id="username" [(ngModel)]="rentalForm.username" />
+            </div>
+            <div class="form-element">
+                <label for="description" class="block text-900 font-medium mb-2">Description</label>
+                <input type="text" class="w-full" pInputText placeholder="Detailed info"  id="description" [(ngModel)]="rentalForm.description" />
+            </div>
+            <div class="form-element">
+                <label for="amenities" class="block text-900 font-medium mb-2">Amenities</label>
+                <input type="text" class="w-full" pInputText placeholder="Ex: Smart lock, Smart Thermostat" id="amenities" [(ngModel)]="rentalForm.amenities" />
+            </div>
+            <div class="form-element">
+                <label for="address" class="block text-900 font-medium mb-2">Address</label>
+                <input type="text" class="w-full" pInputText placeholder="Address" id="address" [(ngModel)]="rentalForm.address" />
+            </div>
+            <div class="form-element">
+                <label for="email1" class="block text-900 font-medium mb-2">email</label>
+                <input type="email" class="w-full" pInputText placeholder="example@gmail.com" id="email" [(ngModel)]="rentalForm.email" />
+            </div>
+            <div class="form-element">
+                <label for="phone" class="block text-900 font-medium mb-2">phone number</label>
+                <input type="number" class="w-full" pInputText placeholder="1111-111-111" id="phone" [(ngModel)]="rentalForm.phone" />
+            </div>
+            <div>
+                <p-fileUpload name="demo[]" url="./upload.php" (onUpload)="onUpload($event)" [multiple]="false" accept="image/*"
+                    [maxFileSize]="1000000">
+                    <ng-template pTemplate="content">
+                        <ul *ngIf="uploadedFiles.length">
+                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                        </ul>
+                    </ng-template>
+                </p-fileUpload>
+            </div>
+            <ng-template pTemplate="footer">
+                <p-button label="Save" icon="pi pi-check" (click)="saveForm()"></p-button>
+                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+                    [style]="{'margin-left': '.5em'}" (click)="cancelForm()">
+                </p-button>
+            </ng-template>
+        </p-card>
+    </div>
+</div>
