@@ -5,7 +5,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-main-app',
   templateUrl: './main-app.component.html',
-  styleUrls: ['./main-app.component.css'],
+  styleUrls: ['./main-app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class MainAppComponent implements OnInit {
