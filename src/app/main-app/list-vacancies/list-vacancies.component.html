@@ -2,32 +2,32 @@
     <div class="grid">
 
         <!-- Loop this container -->
-        <div class="col-12 md:col-6 lg:col-4" (click)="navToDetails()">
-            <div class="property-card surface-card shadow-2 p-3 border-round">
-                <div class="img-block mb-2">
-                    <p-image src="https://photos.zillowstatic.com/fp/49f5b47f0752fda8d328842590f8a2a6-p_e.jpg"
-                        alt="Image" width="100%"></p-image>
-                </div>
-                <div class="flex justify-content-between mb-2">
-                    <div>
-                        <span class="block text-green-600 text-sm font-normal">Apple Ridge Apartments - Walker,
-                            MI-49534</span>
+        <ng-container *ngFor="let property of rentalForms">
+            <div class="col-12 md:col-6 lg:col-4" (click)="navToDetails()">
+                <div class="property-card surface-card shadow-2 p-3 border-round">
+                    <div class="img-block mb-2">
+                        <p-image [src]="property.images[0]" alt="Image" width="100%"></p-image>
+                    </div>
+                    <div class="flex justify-content-between mb-2">
+                        <div>
+                            <span class="block text-green-600 text-sm font-normal"> {{ property.address1 }} {{
+                                property.city }} {{ property.state }} {{ property.zipCode }} </span>
+                        </div>
+                    </div>
+                    <div class="footer flex align-items-baseline justify-content-between">
+                        <div>
+                            <span class="text-dark-500 text-base font-medium">${{ property.price }}, </span>
+                            <span class="text-500"> {{ property.roomsAvailable }} bed,
+                                <ng-container *ngIf="property.bathrooms">
+                                    {{ property.bathrooms }} bath
+                                </ng-container>
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="footer flex align-items-baseline justify-content-between">
-                    <div>
-                        <span class="text-dark-500 text-base font-medium">$1,200 </span>
-                        <span class="text-500">2 bds</span>
-                    </div>
-
-                    <!-- <div class="flex align-items-center justify-content-center bg-blue-100 border-round"
-                        style="width:2rem;height:2rem">
-                        <i class="pi pi-user-edit text-blue-500 text-xl"></i>
-                    </div> -->
-                </div>
-
             </div>
-        </div>
+        </ng-container>
+
 
     </div>
 </div>

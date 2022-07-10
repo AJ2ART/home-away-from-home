@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { Router, ActivatedRoute } from "@angular/router";
 import { MessageService } from 'primeng/api';
 import { NgForm, FormControl, FormGroup } from '@angular/forms';
 import { RentalService } from 'src/app/services/rental.service';
+import { RentalFormHelper } from 'src/app/models/rental-form-helper';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs';
 
@@ -19,23 +20,15 @@ export class AddRentalComponent implements OnInit {
   username: string = '';
 
   id: string = "";
-  rentalForm = {
+  rentalForm: RentalFormHelper = {
     id: '',
-    firstName: '',
-    lastName: '',
-    roomsAvailable: '',
-    bedrooms: '',
-    bathrooms: '',
-    amenities: '',
-    price: '',
+    username: '',
     description: '',
-    address1: '',
-    city: '',
-    state: '',
-    zipCode: '',
+    amenities: '',
+    address: '',
     email: '',
     phone: '',
-    images: new Array<any>()
+    images: []
   };
 
   uploadedFiles: any[] = [];
@@ -47,8 +40,7 @@ export class AddRentalComponent implements OnInit {
     private route: ActivatedRoute,
     private messageService: MessageService,
     private _rentalService: RentalService,
-    private storage: AngularFireStorage,
-    private changeDetectorRef: ChangeDetectorRef
+    private storage: AngularFireStorage
   ) { }
 
   ngOnInit(): void {
@@ -56,36 +48,28 @@ export class AddRentalComponent implements OnInit {
 
     this.id = this.route.snapshot.paramMap.get('id') as string;
     if (this.id) {
-      // this._rentalService.getList(this.id).subscribe(p => this.rentalForm = p);
+      this._rentalService.getList(this.id).subscribe(p => this.rentalForm = p);
     }
   }
 
-  saveForm() {
-    console.log("listForm: ", this.rentalForm);
+  saveForm(rentalForm: NgForm) {
+    console.log("listForm: ", rentalForm.value);
     let dateStamp = new Date();
     // listForm[created_on] = dateStamp;
-    this._rentalService.addApart(this.rentalForm);
+    this._rentalService.addApart(rentalForm.value);
     this.router.navigate(["/"]);
   }
 
   clearForm() {
     this.rentalForm = {
       id: '',
-      firstName: '',
-      lastName: '',
-      roomsAvailable: '',
-      bedrooms: '',
-      bathrooms: '',
-      amenities: '',
-      price: '',
+      username: '',
       description: '',
-      address1: '',
-      city: '',
-      state: '',
-      zipCode: '',
+      amenities: '',
+      address: '',
       email: '',
       phone: '',
-      images: new Array<any>()
+      images: []
     };
   }
 
@@ -94,26 +78,41 @@ export class AddRentalComponent implements OnInit {
     this.router.navigate(["list-vacancies"]);
   }
 
-  onUpload(event: any, imageForm: any) {
+  // onUpload(event: any) {
+  //   console.log("event: ", event);
+
+  //   let selectedImage = event.files[0];
+
+  //   for (let file of event.files) {
+  //     console.log("file: ", file);
+  //     this.uploadedFiles.push(file);
+  //   }
+
+  //   this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+  // }
+
+  onUpload(event: any) {
+    console.log("event: ", event);
 
     for (let file of event.files) {
+      console.log("file: ", file);
       this.uploadedFiles.push(file);
     }
 
-    for (let file of this.uploadedFiles) {
-      let filePath = `${'rentalImages'}/${file.name}_${new Date().getTime()}`;
-      const fileRef = this.storage.ref(filePath);
+    let filePath = `${'rentalImages'}/${this.uploadedFiles[0].name}_${new Date().getTime()}`;
+    const fileRef = this.storage.ref(filePath);
 
-      this.storage.upload(filePath, file).snapshotChanges().pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe((url) => {
-            this.rentalForm.images.push(url);
-          })
+    this.storage.upload(filePath, this.uploadedFiles[0]).snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe((url) => {
+          console.log("url: ", url);
+          this.rentalForm["images"].push(url);
+          this.clearForm();
         })
-      ).subscribe();
-    }
+      })
+    ).subscribe();
 
-    imageForm.clear();
+  
     this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
   }
 }
