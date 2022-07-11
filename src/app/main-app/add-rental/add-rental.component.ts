@@ -53,11 +53,7 @@ export class AddRentalComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-
     this.id = this.route.snapshot.paramMap.get('id') as string;
-    if (this.id) {
-      // this._rentalService.getList(this.id).subscribe(p => this.rentalForm = p);
-    }
   }
 
   saveForm() {

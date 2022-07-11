@@ -41,6 +41,7 @@ export class ListVacanciesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.primengConfig.ripple = true;
 
     this._rentalService.getLists().subscribe((list) => {
       console.log("list: ", list);
@@ -49,8 +50,8 @@ export class ListVacanciesComponent implements OnInit {
 
   }
 
-  navToDetails() {
-    this.router.navigate(["list-vacancies/details"]);
+  navToDetails(id: any) {
+    this.router.navigate([`list-vacancies/${id}/details`]);
   }
 
 }

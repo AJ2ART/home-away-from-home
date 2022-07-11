@@ -1,0 +1,20 @@
+app-property-details-page {
+  .main-form {
+    .form-element {
+      font-size: 14px;
+      margin-bottom: 16px;
+
+      label {
+        text-transform: capitalize;
+      }
+
+      input {
+        font-size: 14px;
+      }
+    }
+
+    .footer {
+      margin-top: 40px;
+    }
+  }
+}

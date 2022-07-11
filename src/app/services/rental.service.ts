@@ -17,9 +17,11 @@ export class RentalService {
       .pipe(
         map((changes: any) => changes.map((c: any) =>
         (
+          console.log(" c.payload.doc.id: ", c.payload.doc.id),
+          console.log(" c.payload.doc.data: ", c.payload.doc.data()),
           {
-            id: c.payload.doc.id,
-            ...c.payload.doc.data()
+            ... c.payload.doc.data(),
+            id: c.payload.doc.id
           }
         )
         ))

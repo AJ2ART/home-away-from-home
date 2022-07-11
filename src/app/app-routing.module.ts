@@ -19,8 +19,8 @@ const routes: Routes = [
     component: ListVacanciesComponent
   },
   {
-    path: 'list-vacancies/details',
-    component: PropertyDetailsPageComponent
+    path: 'list-vacancies/:id/details',
+    component: PropertyDetailsPageComponent,
   }
 ];
 
