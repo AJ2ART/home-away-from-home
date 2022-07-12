@@ -81,7 +81,9 @@
                 <input type="number" class="w-full" pInputText placeholder="1111-111-111" name="phone"
                     [(ngModel)]="rentalForm.phone" />
             </div>
-            <div class="form-element">
+
+            <!-- Show only if the there are any images available -->
+            <div class="form-element" *ngIf="rentalForm.images.length > 0">
                 <p-carousel [value]="rentalForm.images">
                     <ng-template pTemplate="header">
                         <h5>Images</h5>
@@ -89,15 +91,8 @@
                     <ng-template let-img pTemplate="item">
                         <div class="text-center">
                             <p-image [src]="img" alt="Image" width="300px"></p-image>
-
-                            <!-- <div class="grid">
-                                <p-image [src]="img" alt="Image" width="300px"></p-image>
-                                <div>
-                                    <button pButton type="button" class="p-button-rounded p-button-outlined p-button-warning"
-                                        (click)="deleteImg(img)">Delete Img</button>
-                                </div>
-                            </div> -->
-
+                            <button pButton type="button" class="p-button-rounded p-button-outlined p-button-warning"
+                                (click)="deleteImg(img)">Delete Image</button>
                         </div>
                     </ng-template>
                 </p-carousel>
@@ -117,11 +112,16 @@
             </div>
 
             <div class="footer text-right">
-                <p-button label="Update" icon="pi pi-check" type="submit" (click)="updateForm()"></p-button>
-                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
-                    [style]="{'margin-left': '.5em'}" (click)="cancelForm()">
+                <p-button *ngIf="!editMode" label="Edit" icon="pi pi-user-edit"  styleClass="p-button-info" (click)="enableEditForm()"></p-button>
+                <p-button *ngIf="editMode" label="Update" icon="pi pi-check" type="submit"  styleClass="p-button-success" (click)="updateForm()"></p-button>
+                <p-button label="Delete" icon="pi pi-trash" styleClass="p-button-danger"
+                    [style]="{'margin-left': '.5em'}" (click)="deleteForm()">
+                </p-button>
+                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"
+                    (click)="cancelForm()">
                 </p-button>
             </div>
         </p-card>
     </div>
 </div>
+<p-toast position="top-right"></p-toast>

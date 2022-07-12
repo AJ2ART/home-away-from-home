@@ -4,26 +4,31 @@
         <!-- Loop this container -->
         <ng-container *ngFor="let property of rentalForms">
             <div class="col-12 md:col-6 lg:col-4" (click)="navToDetails(property.id)">
-                <div class="property-card surface-card shadow-2 p-3 border-round">
-                    <div class="img-block mb-2">
+                <div class="property-card surface-card shadow-2 border-round">
+                    <div class="img-block mb-0">
                         <p-image [src]="property.images[0]" alt="Image" width="100%"></p-image>
                     </div>
-                    <div class="flex justify-content-between mb-2">
-                        <div>
-                            <span class="block text-green-600 text-sm font-normal"> {{ property.address1 }} {{
-                                property.city }} {{ property.state }} {{ property.zipCode }} </span>
+
+                    <div class="p-3">
+                        <div class="flex justify-content-between mb-2">
+                            <span class="text-dark-600 text-base font-medium">${{ property.price }} </span>
+                        </div>
+                        <div class="footer align-items-baseline justify-content-between">
+                            <div class="mb-2">
+                                <span class="block text-gray-500 text-sm font-normal"> {{ property.address1 }},
+                                    {{ property.city }}, {{ property.state }} {{ property.zipCode }} </span>
+                            </div>
+                            <div>
+                                <p-tag class="custom-pills-1 mr-3" [rounded]="true"
+                                    [value]=" property.roomsAvailable ? property.roomsAvailable + ' bed' : '0 bed' ">
+                                </p-tag>
+
+                                <p-tag class="custom-pills-1 mr-3" [rounded]="true"
+                                    [value]=" property.bathrooms ? property.bathrooms + ' bath' : '0 bath' "></p-tag>
+                            </div>
                         </div>
                     </div>
-                    <div class="footer flex align-items-baseline justify-content-between">
-                        <div>
-                            <span class="text-dark-500 text-base font-medium">${{ property.price }}, </span>
-                            <span class="text-500"> {{ property.roomsAvailable }} bed,
-                                <ng-container *ngIf="property.bathrooms">
-                                    {{ property.bathrooms }} bath
-                                </ng-container>
-                            </span>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </ng-container>

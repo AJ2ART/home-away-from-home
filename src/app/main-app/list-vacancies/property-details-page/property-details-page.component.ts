@@ -21,6 +21,7 @@ export class PropertyDetailsPageComponent implements OnInit {
 
   id: string = "";
   rentalForm = {
+    id: '',
     firstName: '',
     lastName: '',
     roomsAvailable: '',
@@ -40,6 +41,7 @@ export class PropertyDetailsPageComponent implements OnInit {
 
   uploadedFiles: any[] = [];
   uploadMaxFileSize = 1000000;
+  editMode: boolean = false;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -65,6 +67,7 @@ export class PropertyDetailsPageComponent implements OnInit {
   resetForm() {
     // set to original values
     this.rentalForm = {
+      id: '',
       firstName: '',
       lastName: '',
       roomsAvailable: '',
@@ -83,13 +86,26 @@ export class PropertyDetailsPageComponent implements OnInit {
     };
   }
 
+  enableEditForm() {
+    this.editMode = true;
+  }
+
   cancelForm() {
     this.resetForm();
-    this.router.navigate(["list-vacancies"]);
+    this.editMode = false;
   }
 
   updateForm() {
+    this._rentalService.updateList(this.rentalForm, this.id);
+    this.messageService.add({ severity: 'success', summary: 'Rental Property Updated!', detail: '' });
+  }
 
+  deleteForm() {
+    if (confirm("Are you sure you want to delete?")) {
+      this._rentalService.deleteList(this.id);
+      this.messageService.add({ severity: 'success', summary: 'Rental Property Deleted!', detail: '' });
+      this.router.navigate(["/list-vacancies"]);
+    }
   }
 
   onUpload(event: any, imageForm: any) {
@@ -105,17 +121,19 @@ export class PropertyDetailsPageComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
             this.rentalForm.images.push(url);
+            this.uploadedFiles.length = 0;
           })
         })
       ).subscribe();
     }
 
     imageForm.clear();
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+    this.messageService.add({ severity: 'info', summary: 'Images Uploaded', detail: '' });
   }
 
-  deleteImg(img: any) {
-
+  deleteImg(imgURL: any) {
+    this.storage.refFromURL(imgURL).delete();
   }
+  
 
 }

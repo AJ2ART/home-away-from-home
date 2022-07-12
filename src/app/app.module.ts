@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 //primeNG
 import { InputTextModule } from 'primeng/inputtext';
@@ -24,6 +22,8 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { CarouselModule } from 'primeng/carousel';
+import { ToastModule } from 'primeng/toast';
+import { TagModule } from 'primeng/tag';
 
 // Components
 import { MainAppComponent } from './main-app/main-app.component';
@@ -42,6 +42,7 @@ import { PropertyDetailsPageComponent } from './main-app/list-vacancies/property
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
@@ -57,6 +58,8 @@ import { PropertyDetailsPageComponent } from './main-app/list-vacancies/property
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     CarouselModule,
+    ToastModule,
+    TagModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
