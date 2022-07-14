@@ -1,124 +1,204 @@
 <div class="main-form flex justify-content-center">
     <div class="surface-card w-full lg:w-6">
-        <p-card header="Rental form" subheader="Please fill the from" styleClass="border-round m-4 p-4 shadow-2">
-            <div class="form-element grid">
-                <div class="col">
-                    <label for="firstName" class="block text-900 font-medium mb-2">First name</label>
-                    <input type="text" class="w-full" pInputText placeholder="First name" name="firstName"
-                        [(ngModel)]="rentalForm.firstName" />
+        <p-card [class.detail-view-card]="!editMode" [header]=" editMode ? 'Rental Info Form' : 'Rental Info' "
+            [subheader]=" editMode ? 'Please fill the from' : '' " styleClass="border-round m-4 p-4 shadow-2">
+
+            <!-- Editable form view -->
+            <div class="edit-view" *ngIf="editMode">
+                <div class="form-element grid">
+                    <div class="col">
+                        <label for="firstName" class="block text-800 font-medium mb-2">First name</label>
+                        <input type="text" class="w-full" pInputText placeholder="First name" name="firstName"
+                            [(ngModel)]="rentalForm.firstName" />
+                    </div>
+                    <div class="col">
+                        <label for="lastName" class="block text-800 font-medium mb-2">last name</label>
+                        <input type="text" class="w-full" pInputText placeholder="Last name" name="lastName"
+                            [(ngModel)]="rentalForm.lastName" />
+                    </div>
                 </div>
-                <div class="col">
-                    <label for="lastName" class="block text-900 font-medium mb-2">last name</label>
-                    <input type="text" class="w-full" pInputText placeholder="Last name" name="lastName"
-                        [(ngModel)]="rentalForm.lastName" />
+                <div class="form-element grid">
+                    <div class="col">
+                        <label for="No of beds" class="block text-800 font-medium mb-2">No of beds</label>
+                        <input type="text" class="w-full" pInputText placeholder="Ex: 2" name="bedrooms"
+                            [(ngModel)]="rentalForm.bedrooms" />
+                    </div>
+                    <div class="col">
+                        <label for="No of bath" class="block text-800 font-medium mb-2">No of bath</label>
+                        <input type="text" class="w-full" pInputText placeholder="Ex: 1.5" name="bathrooms"
+                            [(ngModel)]="rentalForm.bathrooms" />
+                    </div>
                 </div>
-            </div>
-            <div class="form-element grid">
-                <div class="col">
-                    <label for="No of beds" class="block text-900 font-medium mb-2">No of beds</label>
-                    <input type="text" class="w-full" pInputText placeholder="Ex: 2" name="bedrooms"
-                        [(ngModel)]="rentalForm.bedrooms" />
+                <div class="form-element">
+                    <label for="amenities" class="block text-800 font-medium mb-2">Amenities</label>
+                    <input type="text" class="w-full" pInputText placeholder="Ex: Smart lock, Smart Thermostat"
+                        name="amenities" [(ngModel)]="rentalForm.amenities" />
                 </div>
-                <div class="col">
-                    <label for="No of bath" class="block text-900 font-medium mb-2">No of bath</label>
-                    <input type="text" class="w-full" pInputText placeholder="Ex: 1.5" name="bathrooms"
-                        [(ngModel)]="rentalForm.bathrooms" />
+                <div class="form-element grid">
+                    <div class="col">
+                        <label for="Rooms availability" class="block text-800 font-medium mb-2">No of rooms
+                            Vacant</label>
+                        <input type="text" class="w-full" pInputText placeholder="Ex: 1" name="roomsAvailable"
+                            [(ngModel)]="rentalForm.roomsAvailable" />
+                    </div>
+                    <div class="col">
+                        <label for="price" class="block text-800 font-medium mb-2">Price</label>
+                        <input type="text" class="w-full" pInputText placeholder="Ex: 1200" name="price"
+                            [(ngModel)]="rentalForm.price" />
+                    </div>
                 </div>
-            </div>
-            <div class="form-element">
-                <label for="amenities" class="block text-900 font-medium mb-2">Amenities</label>
-                <input type="text" class="w-full" pInputText placeholder="Ex: Smart lock, Smart Thermostat"
-                    name="amenities" [(ngModel)]="rentalForm.amenities" />
-            </div>
-            <div class="form-element grid">
-                <div class="col">
-                    <label for="Rooms availability" class="block text-900 font-medium mb-2">No of rooms
-                        Vacant</label>
-                    <input type="text" class="w-full" pInputText placeholder="Ex: 1" name="roomsAvailable"
-                        [(ngModel)]="rentalForm.roomsAvailable" />
+
+                <div class="form-element">
+                    <label for="description" class="block text-800 font-medium mb-2">Description</label>
+                    <input type="text" class="w-full" pInputText placeholder="Detailed info" name="description"
+                        [(ngModel)]="rentalForm.description" />
                 </div>
-                <div class="col">
-                    <label for="price" class="block text-900 font-medium mb-2">Price</label>
-                    <input type="text" class="w-full" pInputText placeholder="Ex: 1200" name="price"
-                        [(ngModel)]="rentalForm.price" />
+                <div class="form-element">
+                    <label for="address1" class="block text-800 font-medium mb-2">Street Address</label>
+                    <input type="text" class="w-full" pInputText placeholder="Ex: 123 gold ave" name="address1"
+                        [(ngModel)]="rentalForm.address1" />
+                </div>
+                <div class="form-element">
+                    <label for="city" class="block text-800 font-medium mb-2">City</label>
+                    <input type="text" class="w-full" pInputText placeholder="Ex: Walker" name="city"
+                        [(ngModel)]="rentalForm.city" />
+                </div>
+                <div class="form-element grid">
+                    <div class="col">
+                        <label for="state" class="block text-800 font-medium mb-2">state</label>
+                        <input type="text" class="w-full" pInputText placeholder="Ex: Michigan" name="state"
+                            [(ngModel)]="rentalForm.state" />
+                    </div>
+                    <div class="col">
+                        <label for="zipCode" class="block text-800 font-medium mb-2">zipCode</label>
+                        <input type="text" class="w-full" pInputText placeholder="Ex: 49504" name="zipCode"
+                            [(ngModel)]="rentalForm.zipCode" />
+                    </div>
+                </div>
+                <div class="form-element">
+                    <label for="email1" class="block text-800 font-medium mb-2">email</label>
+                    <input type="email" class="w-full" pInputText placeholder="example@gmail.com" name="email"
+                        [(ngModel)]="rentalForm.email" />
+                </div>
+                <div class="form-element">
+                    <label for="phone" class="block text-800 font-medium mb-2">phone number</label>
+                    <input type="number" class="w-full" pInputText placeholder="1111-111-111" name="phone"
+                        [(ngModel)]="rentalForm.phone" />
+                </div>
+
+                <!-- Show only if the there are any images available -->
+                <div class="form-element" *ngIf="rentalForm.images.length > 0">
+                    <p-carousel [value]="rentalForm.images">
+                        <ng-template pTemplate="header">
+                            <h5>Images</h5>
+                        </ng-template>
+                        <ng-template let-img pTemplate="item">
+                            <div class="text-center">
+                                <p-image [src]="img" alt="Image" width="300px"></p-image>
+                                <button pButton type="button"
+                                    class="p-button-rounded p-button-outlined p-button-warning"
+                                    (click)="deleteImg(img)">Delete Image</button>
+                            </div>
+                        </ng-template>
+                    </p-carousel>
+
+                </div>
+                <div class="form-element">
+                    <label class="block text-800 font-medium mb-2">Add images</label>
+                    <p-fileUpload #imageForm name="images[]" [customUpload]="true"
+                        (uploadHandler)="onUpload($event, imageForm)" [multiple]="true" accept="image/*"
+                        [maxFileSize]="1000000">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
                 </div>
             </div>
 
-            <div class="form-element">
-                <label for="description" class="block text-900 font-medium mb-2">Description</label>
-                <input type="text" class="w-full" pInputText placeholder="Detailed info" name="description"
-                    [(ngModel)]="rentalForm.description" />
-            </div>
-            <div class="form-element">
-                <label for="address1" class="block text-900 font-medium mb-2">Street Address</label>
-                <input type="text" class="w-full" pInputText placeholder="Ex: 123 gold ave" name="address1"
-                    [(ngModel)]="rentalForm.address1" />
-            </div>
-            <div class="form-element">
-                <label for="city" class="block text-900 font-medium mb-2">City</label>
-                <input type="text" class="w-full" pInputText placeholder="Ex: Walker" name="city"
-                    [(ngModel)]="rentalForm.city" />
-            </div>
-            <div class="form-element grid">
-                <div class="col">
-                    <label for="state" class="block text-900 font-medium mb-2">state</label>
-                    <input type="text" class="w-full" pInputText placeholder="Ex: Michigan" name="state"
-                        [(ngModel)]="rentalForm.state" />
-                </div>
-                <div class="col">
-                    <label for="zipCode" class="block text-900 font-medium mb-2">zipCode</label>
-                    <input type="text" class="w-full" pInputText placeholder="Ex: 49504" name="zipCode"
-                        [(ngModel)]="rentalForm.zipCode" />
-                </div>
-            </div>
-            <div class="form-element">
-                <label for="email1" class="block text-900 font-medium mb-2">email</label>
-                <input type="email" class="w-full" pInputText placeholder="example@gmail.com" name="email"
-                    [(ngModel)]="rentalForm.email" />
-            </div>
-            <div class="form-element">
-                <label for="phone" class="block text-900 font-medium mb-2">phone number</label>
-                <input type="number" class="w-full" pInputText placeholder="1111-111-111" name="phone"
-                    [(ngModel)]="rentalForm.phone" />
-            </div>
+            <!-- Regular form view without editable from -->
+            <div class="static-view" *ngIf="!editMode">
 
-            <!-- Show only if the there are any images available -->
-            <div class="form-element" *ngIf="rentalForm.images.length > 0">
-                <p-carousel [value]="rentalForm.images">
-                    <ng-template pTemplate="header">
-                        <h5>Images</h5>
-                    </ng-template>
-                    <ng-template let-img pTemplate="item">
-                        <div class="text-center">
-                            <p-image [src]="img" alt="Image" width="300px"></p-image>
-                            <button pButton type="button" class="p-button-rounded p-button-outlined p-button-warning"
-                                (click)="deleteImg(img)">Delete Image</button>
+                <div class="details-view">
+
+                    <div class="images-gallery">
+                        <p-galleria [value]="carousalData">
+                            <ng-template pTemplate="item" let-item>
+                                <img [src]="item.previewImageSrc" alt="Image" width="100%" height="350px" />
+                            </ng-template>
+                            <ng-template pTemplate="thumbnail" let-item>
+                                <img [src]="item.thumbnailImageSrc" alt="Image" height="60px" />
+                            </ng-template>
+                        </p-galleria>
+                    </div>
+
+                    <div class="content">
+                        <div class="address text-lg font-medium mb-4">
+                            <i class="pi pi-map-marker" style="font-size: 1.4rem"></i> {{ rentalForm.address1 }}, {{
+                            rentalForm.city}}, {{ rentalForm.state }}
+                            {{ rentalForm.zipCode }}
+                            <br>
+                            <div class="mt-3">
+                                <div class="grid align-items-center">
+                                    <div class="col-8">
+                                        <p-tag class="custom-pills-1 mr-3" [rounded]="true"
+                                            [value]=" rentalForm.roomsAvailable ? rentalForm.bedrooms + ' bed total' : '0 bed total' ">
+                                        </p-tag>
+                                        
+                                        <p-tag class="custom-pills-1 mr-3" [rounded]="true"
+                                            [value]=" rentalForm.bathrooms ? rentalForm.bathrooms + ' bath' : '0 bath' ">
+                                        </p-tag>
+                                        
+                                        <p-tag class="custom-pills-1 mr-3" [rounded]="true"
+                                            [value]=" rentalForm.roomsAvailable ? rentalForm.roomsAvailable + ' bed available' : '0 bed available' ">
+                                        </p-tag>
+                                    </div>
+                                    <div class="col-4">
+                                       <span class="text-lg font-medium"> ${{ rentalForm.price ? rentalForm.price : '0' }} / month </span>
+                                    </div>
+
+                                </div>
+                               
+                            </div>
                         </div>
-                    </ng-template>
-                </p-carousel>
+                        <p-divider></p-divider>
 
-            </div>
-            <div class="form-element">
-                <label class="block text-900 font-medium mb-2">Add images</label>
-                <p-fileUpload #imageForm name="images[]" [customUpload]="true"
-                    (uploadHandler)="onUpload($event, imageForm)" [multiple]="true" accept="image/*"
-                    [maxFileSize]="1000000">
-                    <ng-template pTemplate="content">
-                        <ul *ngIf="uploadedFiles.length">
-                            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                        </ul>
-                    </ng-template>
-                </p-fileUpload>
+                        <div class="form-element description">
+                            <label for="description"
+                                class="block text-800 text-base font-medium mb-2">Description</label>
+                            {{ rentalForm.description ? rentalForm.description : 'N/A' }}
+                        </div>
+
+                        <div class="form-element amenities">
+                            <label for="amenities" class="block text-800 text-base font-medium mb-2">amenities</label>
+                            {{ rentalForm.amenities ? rentalForm.amenities : 'N/A' }}
+                        </div>
+
+                        <div class="form-element contact">
+                            <label for="description" class="block text-800 text-base font-medium mb-2">contact</label>
+                            {{ rentalForm.email ? rentalForm.email : 'N/A' }}
+                            <br>
+                            {{ rentalForm.phone ? rentalForm.phone : 'N/A' }}
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
             <div class="footer text-right">
-                <p-button *ngIf="!editMode" label="Edit" icon="pi pi-user-edit"  styleClass="p-button-info" (click)="enableEditForm()"></p-button>
-                <p-button *ngIf="editMode" label="Update" icon="pi pi-check" type="submit"  styleClass="p-button-success" (click)="updateForm()"></p-button>
+                <p-button *ngIf="!editMode" label="Edit" icon="pi pi-user-edit" styleClass="p-button-info"
+                    (click)="enableEditForm()"></p-button>
+                <p-button *ngIf="editMode" label="Update" icon="pi pi-check" type="submit" styleClass="p-button-success"
+                    (click)="updateForm()"></p-button>
                 <p-button label="Delete" icon="pi pi-trash" styleClass="p-button-danger"
                     [style]="{'margin-left': '.5em'}" (click)="deleteForm()">
                 </p-button>
-                <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{'margin-left': '.5em'}"
-                    (click)="cancelForm()">
+                <p-button *ngIf="!editMode" label="Back" icon="pi pi-times" styleClass="p-button-secondary"
+                    [style]="{'margin-left': '.5em'}" (click)="navBack()">
+                </p-button>
+                <p-button *ngIf="editMode" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"
+                    [style]="{'margin-left': '.5em'}" (click)="cancelForm()">
                 </p-button>
             </div>
         </p-card>

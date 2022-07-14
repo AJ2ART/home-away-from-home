@@ -24,6 +24,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { CarouselModule } from 'primeng/carousel';
 import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
+import { GalleriaModule } from 'primeng/galleria';
+import { DividerModule } from 'primeng/divider';
 
 // Components
 import { MainAppComponent } from './main-app/main-app.component';
@@ -60,6 +62,8 @@ import { PropertyDetailsPageComponent } from './main-app/list-vacancies/property
     CarouselModule,
     ToastModule,
     TagModule,
+    GalleriaModule,
+    DividerModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),

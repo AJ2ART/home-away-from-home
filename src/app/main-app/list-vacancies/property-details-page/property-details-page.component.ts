@@ -38,6 +38,8 @@ export class PropertyDetailsPageComponent implements OnInit {
     phone: '',
     images: new Array<any>()
   };
+  originalCopy: any;
+  carousalData: Array<any> = [];
 
   uploadedFiles: any[] = [];
   uploadMaxFileSize = 1000000;
@@ -60,28 +62,41 @@ export class PropertyDetailsPageComponent implements OnInit {
     if (this.id) {
       this._rentalService.getList(this.id).subscribe(p => {
         this.rentalForm = p;
+        this.originalCopy = p;
+
+        this.formatCarouselData(this.rentalForm.images); 
       });
     }
   }
 
+  formatCarouselData(images: any) {
+    this.carousalData = [];
+    for(let img of images) {
+      this.carousalData.push({
+        "previewImageSrc": img,
+        "thumbnailImageSrc": img,
+      })
+    }
+  }
+  
   resetForm() {
     // set to original values
     this.rentalForm = {
-      id: '',
-      firstName: '',
-      lastName: '',
-      roomsAvailable: '',
-      bedrooms: '',
-      bathrooms: '',
-      amenities: '',
-      price: '',
-      description: '',
-      address1: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      email: '',
-      phone: '',
+      id: this.originalCopy.id,
+      firstName: this.originalCopy.firstName,
+      lastName: this.originalCopy.lastName,
+      roomsAvailable: this.originalCopy.roomsAvailable,
+      bedrooms: this.originalCopy.bedrooms,
+      bathrooms: this.originalCopy.bathrooms,
+      amenities: this.originalCopy.amenities,
+      price: this.originalCopy.price,
+      description: this.originalCopy.description,
+      address1: this.originalCopy.address1,
+      city: this.originalCopy.city,
+      state: this.originalCopy.state,
+      zipCode: this.originalCopy.zipCode,
+      email: this.originalCopy.email,
+      phone: this.originalCopy.phone,
       images: new Array<any>()
     };
   }
@@ -93,6 +108,10 @@ export class PropertyDetailsPageComponent implements OnInit {
   cancelForm() {
     this.resetForm();
     this.editMode = false;
+  }
+
+  navBack() {
+    this.router.navigate(["/list-vacancies"]);
   }
 
   updateForm() {
