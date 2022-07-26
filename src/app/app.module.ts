@@ -32,6 +32,8 @@ import { MainAppComponent } from './main-app/main-app.component';
 import { AddRentalComponent } from './main-app/add-rental/add-rental.component';
 import { ListVacanciesComponent } from './main-app/list-vacancies/list-vacancies.component';
 import { PropertyDetailsPageComponent } from './main-app/list-vacancies/property-details-page/property-details-page.component';
+import { ContactComponent } from './main-app/contact/contact.component';
+import { AboutComponent } from './main-app/about/about.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { PropertyDetailsPageComponent } from './main-app/list-vacancies/property
     MainAppComponent,
     AddRentalComponent,
     ListVacanciesComponent,
-    PropertyDetailsPageComponent
+    PropertyDetailsPageComponent,
+    ContactComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
